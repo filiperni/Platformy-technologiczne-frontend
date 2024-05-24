@@ -1,6 +1,7 @@
 import { Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Homepage from "./pages/homepage/homepage.page";
+import SignInUp from "./pages/sign-in-up/sign-in-up.page";
 
 function App() {
 	return (
@@ -8,7 +9,8 @@ function App() {
 			{/* <Router> */}
 			{/* <Switch> */}
 			{/* <Route path="/"> */}
-			<Homepage />
+			{/* <Homepage /> */}
+			<SignInUp />
 			{/* </Route>
 				<Route path="/sign-in-up">
 					<div>sign in up</div>

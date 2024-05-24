@@ -11,11 +11,26 @@ const AddButton = () => {
 		const file = event.target.files[0];
 		if (file) {
 			const reader = new FileReader();
-			reader.onload = e => {
-				// setSelectedImage(e.target.result);
+			reader.onload = async e => {
+				const arrayBuffer = e.target.result;
+				const byteArray = new Uint8Array(arrayBuffer);
+
+				// Convert byteArray to base64 for displaying the image
+				const base64String = btoa(
+					new Uint8Array(arrayBuffer).reduce(
+						(data, byte) => data + String.fromCharCode(byte),
+						""
+					)
+				);
+				//setSelectedImage(`data:image/jpeg;base64,${base64String}`);
+
+				// Send byte array to the backend
+				//await sendImageToBackend(byteArray);
+				alert(byteArray);
 			};
-			reader.readAsDataURL(file);
+			reader.readAsArrayBuffer(file);
 		}
+		alert("successfully uploaded photo");
 	};
 
 	return (
