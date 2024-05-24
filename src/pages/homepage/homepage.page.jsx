@@ -79,6 +79,12 @@ const Homepage = () => {
 					maxHeight: "calc(100vh - 90px",
 				}}
 			>
+				<input
+					type="file"
+					id="fileInput"
+					accept="image/*"
+					style={{ display: "none" }}
+				></input>
 				{Object.keys(images).map(date => {
 					console.log(date);
 					return (
