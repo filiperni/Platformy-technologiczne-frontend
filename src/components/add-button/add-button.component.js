@@ -1,7 +1,7 @@
 import React from "react";
 import RoundedButton from "../rounded-button/rounded-button.component";
 
-const AddButton = () => {
+const AddButton = ({ addImage }) => {
 	function onClick() {
 		console.log("click");
 		document.getElementById("fileInput").click();
@@ -16,12 +16,23 @@ const AddButton = () => {
 				const byteArray = new Uint8Array(arrayBuffer);
 
 				// Convert byteArray to base64 for displaying the image
-				const base64String = btoa(
-					new Uint8Array(arrayBuffer).reduce(
-						(data, byte) => data + String.fromCharCode(byte),
-						""
-					)
-				);
+				// const base64String = btoa(
+				// 	new Uint8Array(arrayBuffer).reduce(
+				// 		(data, byte) => data + String.fromCharCode(byte),
+				// 		""
+				// 	)
+				// );
+				console.log("kurrrrrwa");
+				const base64String = byteArrayToBase64(byteArray);
+
+				// ["10.10.2024](`data:image/jpeg;base64,${base64String}`);
+				// console.log(`data:image/jpeg;base64,${base64String}`);
+				addImage({
+					date: "10.10.2024",
+					src: `data:image/jpeg;base64,${base64String}`,
+				});
+				// console.log(`data:image/jpeg;base64,${base64String}`);
+
 				//setSelectedImage(`data:image/jpeg;base64,${base64String}`);
 
 				// Send byte array to the backend
@@ -31,6 +42,16 @@ const AddButton = () => {
 			reader.readAsArrayBuffer(file);
 		}
 		alert("successfully uploaded photo");
+	};
+
+	const byteArrayToBase64 = byteArray => {
+		let binary = "";
+		const bytes = new Uint8Array(byteArray);
+		const len = bytes.byteLength;
+		for (let i = 0; i < len; i++) {
+			binary += String.fromCharCode(bytes[i]);
+		}
+		return window.btoa(binary);
 	};
 
 	return (
@@ -56,6 +77,7 @@ const AddButton = () => {
 					+
 				</div>
 			</RoundedButton>
+
 			<input
 				type="file"
 				id="fileInput"
