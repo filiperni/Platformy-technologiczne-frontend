@@ -2,6 +2,7 @@ import React from "react";
 import { Background, Header } from "./homepage.page.styles";
 import RoundedButton from "../../components/rounded-button/rounded-button.component";
 import Label from "../../components/label/label.component";
+import AddButton from "../../components/add-button/add-button.component";
 
 const Homepage = () => {
 	const images = {
@@ -42,26 +43,7 @@ const Homepage = () => {
 				<RoundedButton style={{ left: "5px" }}>select</RoundedButton>
 				<RoundedButton style={{ left: "126px" }}>delete</RoundedButton>
 
-				<RoundedButton
-					style={{
-						right: "calc(50vw - 27px)",
-						padding: "0px 0px 0px 0px",
-						width: "55px",
-						height: "55px",
-						borderRadius: "50%",
-						fontSize: "50px",
-					}}
-				>
-					<div
-						style={{
-							position: "absolute",
-							top: "-7px",
-							left: "10px",
-						}}
-					>
-						+
-					</div>
-				</RoundedButton>
+				<AddButton />
 
 				<RoundedButton
 					style={{
@@ -79,12 +61,6 @@ const Homepage = () => {
 					maxHeight: "calc(100vh - 90px",
 				}}
 			>
-				<input
-					type="file"
-					id="fileInput"
-					accept="image/*"
-					style={{ display: "none" }}
-				></input>
 				{Object.keys(images).map(date => {
 					console.log(date);
 					return (
