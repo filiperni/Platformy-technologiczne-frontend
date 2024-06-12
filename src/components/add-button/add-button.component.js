@@ -1,7 +1,7 @@
 import React from "react";
 import RoundedButton from "../rounded-button/rounded-button.component";
 
-const AddButton = ({ addImage }) => {
+const AddButton = ({ addImage, email }) => {
 	function onClick() {
 		console.log("click");
 		document.getElementById("fileInput").click();
@@ -26,9 +26,9 @@ const AddButton = ({ addImage }) => {
 				const base64String = byteArrayToBase64(byteArray);
 
 				// ["10.10.2024](`data:image/jpeg;base64,${base64String}`);
-				// console.log(`data:image/jpeg;base64,${base64String}`);
+				console.log(`data:image/jpeg;base64,${base64String}`);
 				addImage({
-					date: "10.10.2024",
+					date: "12.06.2024",
 					src: `data:image/jpeg;base64,${base64String}`,
 				});
 				// console.log(`data:image/jpeg;base64,${base64String}`);
@@ -37,7 +37,26 @@ const AddButton = ({ addImage }) => {
 
 				// Send byte array to the backend
 				//await sendImageToBackend(byteArray);
-				alert(byteArray);
+				// console.log(Array.from(byteArray));
+				// alert(byteArray);
+				// console.log(JSON.stringify(Array.from(byteArray)));
+				const url = `http://localhost:8080/api/v1/photo/?username=${encodeURIComponent(
+					email
+				)}&photoCategory=ARCHITECTURE`;
+				fetch(url, {
+					method: "POST",
+					headers: {
+						Accept: "*/*",
+						"Content-Type": "application/json",
+					},
+					body: `data:image/jpeg;base64,${base64String}`,
+				})
+					.then(res => {
+						console.log(res);
+					})
+					.catch(err => {
+						console.error(err);
+					});
 			};
 			reader.readAsArrayBuffer(file);
 		}

@@ -5,7 +5,7 @@ import SignInUp from "./pages/sign-in-up/sign-in-up.page";
 
 const router = createBrowserRouter([
 	{
-		path: "/home",
+		path: "/home/:email",
 		element: <Homepage />,
 	},
 	{

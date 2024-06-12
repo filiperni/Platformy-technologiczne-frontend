@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Background, Header } from "./homepage.page.styles";
 import RoundedButton from "../../components/rounded-button/rounded-button.component";
 import Label from "../../components/label/label.component";
 import AddButton from "../../components/add-button/add-button.component";
+import { useParams } from "react-router-dom";
 
 const templateImages = {
 	"20.04.2024": [
@@ -39,7 +40,32 @@ const templateImages = {
 
 const Homepage = () => {
 	const [images, setImages] = useState(templateImages);
+	const { email } = useParams();
 
+	useEffect(() => {
+		console.log(email);
+		//get current photos from db
+		//if email not null
+		const url = `http://localhost:8080/api/v1/photo/username?username=${encodeURIComponent(
+			email
+		)}`;
+		fetch(url, { method: "GET" })
+			.then(res => {
+				console.log(res);
+				return res.json();
+			})
+			.then(data => {
+				console.log(data);
+				var newImg = [];
+				data.forEach(item => {
+					newImg.push({ imageUrl: item.photo });
+				});
+				setImages({ "12.06.2024": newImg });
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	}, []);
 	function addImage({ date, src }) {
 		var newObject = { ...images };
 		console.log(newObject);
@@ -54,7 +80,7 @@ const Homepage = () => {
 				<RoundedButton style={{ left: "5px" }}>select</RoundedButton>
 				<RoundedButton style={{ left: "126px" }}>delete</RoundedButton>
 
-				<AddButton addImage={addImage} />
+				<AddButton addImage={addImage} email={email} />
 
 				<RoundedButton
 					style={{
